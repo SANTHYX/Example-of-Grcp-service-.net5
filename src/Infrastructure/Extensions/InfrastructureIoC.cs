@@ -4,7 +4,6 @@ using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace Infrastructure.Extensions
 {
@@ -18,10 +17,8 @@ namespace Infrastructure.Extensions
                     npgCfg => npgCfg.MigrationsAssembly("Infrastructure"));
                 opt.EnableDetailedErrors();
             });
-
-            var assembly = typeof(InfrastructureIoC).Assembly.GetType().Assembly;
             
-            services.Scan(scan => scan.FromAssemblyDependencies(assembly)
+            services.Scan(scan => scan.FromApplicationDependencies()
                 .AddClasses(classes =>classes.AssignableTo(typeof(ICommandHandler<>)))
                     .AsImplementedInterfaces()
                     .WithScopedLifetime()
