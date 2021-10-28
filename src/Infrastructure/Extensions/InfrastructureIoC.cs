@@ -1,5 +1,7 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.CQRS.Queries;
+using Infrastructure.CQRS.Command;
+using Infrastructure.CQRS.Queries;
 using Infrastructure.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,22 +23,11 @@ namespace Infrastructure.Extensions
             services.Scan(scan => scan.FromApplicationDependencies()
                 .AddClasses(classes =>classes.AssignableTo(typeof(ICommandHandler<>)))
                     .AsImplementedInterfaces()
-                    .WithScopedLifetime()
-                .AddClasses(classes => classes.AssignableTo<ICommand>())
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime()
-                .AddClasses(classes => classes.AssignableTo<ICommandDispatcher>())
-                    .AsMatchingInterface()
-                    .WithSingletonLifetime()
-                .AddClasses(classes => classes.AssignableTo(typeof(IQuery<>)))
-                    .AsImplementedInterfaces()
-                    .WithScopedLifetime()
                 .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
                     .AsImplementedInterfaces()
-                    .WithScopedLifetime()
-                .AddClasses(classes => classes.AssignableTo<IQueryDispatcher>())
-                    .AsMatchingInterface()
-                    .WithSingletonLifetime());
+                    .WithScopedLifetime());
+            services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
+            services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
         }
     }
 }

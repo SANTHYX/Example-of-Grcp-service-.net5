@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.CQRS.Queries
 {
-    public class QueriesDispatcher : IQueryDispatcher
+    public class QueryDispatcher : IQueryDispatcher
     {
         private readonly IServiceScopeFactory _factory;
 
-        public QueriesDispatcher(IServiceScopeFactory factory)
+        public QueryDispatcher(IServiceScopeFactory factory)
         {
             _factory = factory;
         }
