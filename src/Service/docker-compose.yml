@@ -1,0 +1,31 @@
+﻿version: '3.4'
+
+services:
+    healthyro-product-service:
+        build: Service/
+        restart: always
+        ports:
+            - "5010:80"
+        depends_on:
+            - healthyro-product-db
+        networks:
+            - localdev
+
+    healthyro-product-db:
+        image: postgres:latest
+        restart: always
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_PASSWORD: healthyro@
+            POSTGRES_USER: healthyro@dmin
+            POSTGRES_DB: HealthyroProductDb
+        volumes:
+            - ./var/lib/postgresql/data
+        networks:
+            - localdev
+
+
+networks:
+    localdev:
+        name: localdev

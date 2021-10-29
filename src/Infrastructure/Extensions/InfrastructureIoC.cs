@@ -30,7 +30,7 @@ namespace Infrastructure.Extensions
                     .WithTransientLifetime());
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
-            services.AddSingleton<IDataContext, DataContext>();
+            services.AddScoped<IDataContext, DataContext>();
         }
     }
 }
