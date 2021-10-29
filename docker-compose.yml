@@ -1,8 +1,11 @@
-﻿version: '3.4'
+version: '3.4'
 
 services:
-    healthyro-product-service:
-        build: Service/
+    service:
+        image: ${DOCKER_REGISTRY-}service
+        build:
+            context: .
+            dockerfile: src/Service/Dockerfile
         container_name: healthyro-product-service
         restart: always
         ports:
@@ -13,7 +16,7 @@ services:
             - localdev
 
     healthyro-product-db:
-        image: postgres:latest
+        image: postgres
         container_name: healthyro-product-db
         restart: always
         ports:
