@@ -24,9 +24,10 @@ namespace Infrastructure.Extensions
             services.Scan(scan => scan.FromApplicationDependencies()
                 .AddClasses(classes =>classes.AssignableTo(typeof(ICommandHandler<>)))
                     .AsImplementedInterfaces()
+                    .WithTransientLifetime()
                 .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
                     .AsImplementedInterfaces()
-                    .WithScopedLifetime());
+                    .WithTransientLifetime());
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
             services.AddSingleton<IDataContext, DataContext>();
