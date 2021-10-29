@@ -1,5 +1,6 @@
 ﻿using Application.Commons.CQRS.Command;
 using Application.Commons.CQRS.Queries;
+using Application.Commons.Persistance;
 using Infrastructure.CQRS.Command;
 using Infrastructure.CQRS.Queries;
 using Infrastructure.Persistance;
@@ -28,6 +29,7 @@ namespace Infrastructure.Extensions
                     .WithScopedLifetime());
             services.AddSingleton<ICommandDispatcher, CommandDispatcher>();
             services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
+            services.AddSingleton<IDataContext, DataContext>();
         }
     }
 }
