@@ -3,6 +3,7 @@
 services:
     healthyro-product-service:
         build: Service/
+        container_name: healthyro-product-service
         restart: always
         ports:
             - "5010:80"
@@ -13,6 +14,7 @@ services:
 
     healthyro-product-db:
         image: postgres:latest
+        container_name: healthyro-product-db
         restart: always
         ports:
             - "5432:5432"
